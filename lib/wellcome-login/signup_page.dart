@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../screens/home_screen.dart';
+import '../Main_page/Main_page.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -13,16 +14,18 @@ class SignUp extends StatefulWidget {
 }
 
 bool hiddenpaas = true;
-var erruname, errfname, errlname, erremail, errpass;
+var erruname, erremail, errphone, erraddress, errid, errpass;
 
 class _SignUpState extends State<SignUp> {
   final TextEditingController usernameeController = new TextEditingController();
 
-  final TextEditingController FirstnameController = new TextEditingController();
-
-  final TextEditingController LastnameController = new TextEditingController();
-
   final TextEditingController emailController = new TextEditingController();
+
+  final TextEditingController PhoneController = new TextEditingController();
+
+  final TextEditingController AddressController = new TextEditingController();
+
+  final TextEditingController IdController = new TextEditingController();
 
   final TextEditingController passworddController = new TextEditingController();
 
@@ -86,32 +89,6 @@ class _SignUpState extends State<SignUp> {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(right: 16),
-                            child: Icon(Icons.supervised_user_circle,
-                                color: maincolor),
-                          ),
-                          Expanded(
-                              child: TextField(
-                                  controller: FirstnameController,
-                                  decoration: InputDecoration(
-                                    hintText: "First NAME",
-                                    errorText: errfname,
-                                    hintStyle: TextStyle(
-                                        color: Colors.grey, fontSize: 12),
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: maincolor), //<-- SEE HERE
-                                    ),
-                                  )))
-                        ],
-                      ),
-                    ),
 
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10),
@@ -139,6 +116,83 @@ class _SignUpState extends State<SignUp> {
                         ],
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(right: 16),
+                            child: Icon(Icons.phone, color: maincolor),
+                          ),
+                          Expanded(
+                              child: TextField(
+                                  controller: PhoneController,
+                                  decoration: InputDecoration(
+                                    hintText: "Phone",
+                                    errorText: errphone,
+                                    hintStyle: TextStyle(
+                                        color: Colors.grey, fontSize: 12),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: maincolor), //<-- SEE HERE
+                                    ),
+                                  )))
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(right: 16),
+                            child: Icon(Icons.location_city, color: maincolor),
+                          ),
+                          Expanded(
+                              child: TextField(
+                                  controller: AddressController,
+                                  decoration: InputDecoration(
+                                    hintText: "Address",
+                                    errorText: erraddress,
+                                    hintStyle: TextStyle(
+                                        color: Colors.grey, fontSize: 12),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: maincolor), //<-- SEE HERE
+                                    ),
+                                  )))
+                        ],
+                      ),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(right: 16),
+                            child: Icon(Icons.perm_identity, color: maincolor),
+                          ),
+                          Expanded(
+                              child: TextField(
+                                  controller: IdController,
+                                  decoration: InputDecoration(
+                                    hintText: "ID",
+                                    errorText: errid,
+                                    hintStyle: TextStyle(
+                                        color: Colors.grey, fontSize: 12),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: maincolor), //<-- SEE HERE
+                                    ),
+                                  )))
+                        ],
+                      ),
+                    ),
+
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
@@ -168,32 +222,7 @@ class _SignUpState extends State<SignUp> {
                                 )))
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(right: 16),
-                            child: Icon(Icons.supervised_user_circle,
-                                color: maincolor),
-                          ),
-                          Expanded(
-                              child: TextField(
-                                  controller: LastnameController,
-                                  decoration: InputDecoration(
-                                    hintText: "Last Name",
-                                    errorText: errlname,
-                                    hintStyle: TextStyle(
-                                        color: Colors.grey, fontSize: 12),
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: maincolor), //<-- SEE HERE
-                                    ),
-                                  )))
-                        ],
-                      ),
-                    ),
+
                     Spacer(),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 15),
@@ -205,15 +234,16 @@ class _SignUpState extends State<SignUp> {
                               onTap: () {
                                 Navigator.push(context, MaterialPageRoute(
                                   builder: (context) {
-                                    return HomeScreen();
+                                    return Mainpage();
                                     //SignIn();
                                   },
                                 ));
                                 setState(() {
                                   erruname = null;
-                                  errfname = null;
-                                  errlname = null;
                                   erremail = null;
+                                  errphone = null;
+                                  erraddress = null;
+                                  errid = null;
                                   errpass = null;
                                 });
                               },
@@ -259,22 +289,13 @@ class _SignUpState extends State<SignUp> {
                                     erruname = null;
                                   });
                                 }
-                                if (FirstnameController.text.isEmpty) {
+                                if (AddressController.text.isEmpty) {
                                   setState(() {
-                                    errfname = "Not valid Firstname";
+                                    erraddress = "Not valid Address";
                                   });
                                 } else {
                                   setState(() {
-                                    errfname = null;
-                                  });
-                                }
-                                if (LastnameController.text.isEmpty) {
-                                  setState(() {
-                                    errlname = "Not valid Lastname";
-                                  });
-                                } else {
-                                  setState(() {
-                                    errlname = null;
+                                    erraddress = null;
                                   });
                                 }
                                 if (emailController.text.isEmpty) {
@@ -284,6 +305,24 @@ class _SignUpState extends State<SignUp> {
                                 } else {
                                   setState(() {
                                     erremail = null;
+                                  });
+                                }
+                                if (PhoneController.text.isEmpty) {
+                                  setState(() {
+                                    erremail = "Not valid Phone";
+                                  });
+                                } else {
+                                  setState(() {
+                                    errphone = null;
+                                  });
+                                }
+                                if (IdController.text.isEmpty) {
+                                  setState(() {
+                                    erremail = "Not valid ID";
+                                  });
+                                } else {
+                                  setState(() {
+                                    errid = null;
                                   });
                                 }
                                 if (passworddController.text.isEmpty) {
@@ -299,9 +338,10 @@ class _SignUpState extends State<SignUp> {
                                 print("hi im hosny");
                                 signup(
                                     usernameeController.text,
-                                    FirstnameController.text,
-                                    LastnameController.text,
                                     emailController.text,
+                                    PhoneController.text,
+                                    AddressController.text,
+                                    IdController.text,
                                     passworddController.text,
                                     context);
 
@@ -338,16 +378,17 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  signup(String username, String firstname, String lastname, String email,
+  signup(String username, String email, String phone, String address, String id,
       String password, BuildContext contextt) async {
     print("hi im omar");
     var response = await http
         .post(Uri.parse("http://192.168.1.65:8090/api/v1/user/addUser"),
             body: json.encode({
               'userName': username,
-              'firstName': firstname,
-              'lastName': lastname,
-              'email': email,
+              'firstName': email,
+              'lastName': phone,
+              'email': address,
+              'id': id,
               'password': password,
               'role': "User"
             }),
@@ -357,9 +398,10 @@ class _SignUpState extends State<SignUp> {
       print('account is creted ');
 
       usernameeController.text = "";
-      FirstnameController.text = "";
-      LastnameController.text = "";
       emailController.text = "";
+      PhoneController.text = "";
+      AddressController.text = "";
+      IdController.text = "";
       passworddController.text = "";
 
       final snakbar = SnackBar(content: Text("Account is Created"));

@@ -4,6 +4,8 @@ import '../pageone.dart';
 import 'Drawer_item.dart';
 import '../wellcome-login/update_profile.dart';
 import '../screens/home_screen.dart';
+import '../Complain/Complain_form.dart';
+import '../Main_page/Main_page.dart';
 
 class Ndrawer extends StatelessWidget {
   const Ndrawer({Key key}) : super(key: key);
@@ -12,7 +14,7 @@ class Ndrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: Material(
-        color: maincolor,
+        color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 60, 19, 0),
           child: Column(
@@ -50,7 +52,15 @@ class Ndrawer extends StatelessWidget {
                 onPressed: () => onItempressd(context, index: 2),
               ),
               const SizedBox(
-                height: 10,
+                height: 20,
+              ),
+              Draweritem(
+                name: 'About Us',
+                icon: Icons.contact_page,
+                onPressed: () => onItempressd(context, index: 3),
+              ),
+              const SizedBox(
+                height: 20,
               ),
               const Divider(
                 thickness: 1,
@@ -59,7 +69,7 @@ class Ndrawer extends StatelessWidget {
               Draweritem(
                 name: 'Logout',
                 icon: Icons.logout,
-                onPressed: () => onItempressd(context, index: 3),
+                onPressed: () => onItempressd(context, index: 4),
               ),
             ],
           ),
@@ -75,14 +85,25 @@ class Ndrawer extends StatelessWidget {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => UpdateProfileScreen()));
         break;
-      case 2:
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => HomeScreen()));
+      case 1:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Complain()));
         break;
+      case 2:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => HomeScreen()));
+        break;
+
       case 3:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Mainpage()));
+        break;
+
+      case 4:
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => SignIn()));
         break;
+
       default:
         Navigator.pop(context);
         break;
@@ -105,7 +126,7 @@ class Ndrawer extends StatelessWidget {
               "hosny ishtaya",
               style: TextStyle(
                   fontSize: 18,
-                  color: Colors.white,
+                  color: Colors.black,
                   fontWeight: FontWeight.bold),
             ),
             const SizedBox(
@@ -115,7 +136,7 @@ class Ndrawer extends StatelessWidget {
               "hosnyish812@gmail.com.",
               style: TextStyle(
                   fontSize: 12,
-                  color: Colors.white,
+                  color: Colors.black,
                   fontWeight: FontWeight.bold),
             )
           ],

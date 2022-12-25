@@ -17,10 +17,10 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   bool hiddenpaas = true;
   var errorpass;
-  var errorname;
+  var erroremail;
 
   var _formkey = GlobalKey<FormState>();
-  final TextEditingController usernameController = new TextEditingController();
+  final TextEditingController EmailController = new TextEditingController();
 
   final TextEditingController passwordController = new TextEditingController();
 
@@ -83,10 +83,10 @@ class _SignInState extends State<SignIn> {
                           ),
                           Expanded(
                               child: TextField(
-                            controller: usernameController,
+                            controller: EmailController,
                             decoration: InputDecoration(
                               hintText: " Your Email",
-                              errorText: errorname,
+                              errorText: erroremail,
                               hintStyle:
                                   TextStyle(color: Colors.grey, fontSize: 12),
                               enabledBorder: UnderlineInputBorder(
@@ -131,6 +131,24 @@ class _SignInState extends State<SignIn> {
                         )
                       ],
                     ),
+                    SizedBox(
+                      height: 13,
+                    ),
+                    FittedBox(
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) {
+                              return SignUp();
+                            },
+                          ));
+                        },
+                        child: Text(
+                          "Forgate Password..",
+                          style: Theme.of(context).textTheme.displaySmall,
+                        ),
+                      ),
+                    ),
                     Spacer(),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 15),
@@ -168,32 +186,32 @@ class _SignInState extends State<SignIn> {
                           SizedBox(
                             width: 30,
                           ),
-                          Container(
-                            padding: EdgeInsets.all(15),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: maincolor.withOpacity(1),
-                            ),
-                            child: Icon(
-                              Icons.facebook_outlined,
-                              // color: Colors.white.withOpacity(0.5),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
+                          // Container(
+                          //   padding: EdgeInsets.all(15),
+                          //   decoration: BoxDecoration(
+                          //     shape: BoxShape.circle,
+                          //     color: maincolor.withOpacity(1),
+                          //   ),
+                          //   child: Icon(
+                          //     Icons.facebook_outlined,
+                          //     // color: Colors.white.withOpacity(0.5),
+                          //   ),
+                          // ),
+                          // SizedBox(
+                          //   width: 5,
+                          // ),
 
-                          Container(
-                            padding: EdgeInsets.all(15),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: maincolor.withOpacity(1),
-                            ),
-                            child: Icon(
-                              Icons.youtube_searched_for_outlined,
-                              // color: Colors.white.withOpacity(0.5),
-                            ),
-                          ),
+                          // Container(
+                          //   padding: EdgeInsets.all(15),
+                          //   decoration: BoxDecoration(
+                          //     shape: BoxShape.circle,
+                          //     color: maincolor.withOpacity(1),
+                          //   ),
+                          //   child: Icon(
+                          //     Icons.youtube_searched_for_outlined,
+                          //     // color: Colors.white.withOpacity(0.5),
+                          //   ),
+                          // ),
                           Spacer(),
                           //Icons.login_sharp,
 
@@ -201,15 +219,15 @@ class _SignInState extends State<SignIn> {
                             child: GestureDetector(
                               //*************************************************************************************** */
                               onTap: () {
-                                signin(usernameController.text,
+                                signin(EmailController.text,
                                     passwordController.text, context);
-                                if (usernameController.text.isEmpty) {
+                                if (EmailController.text.isEmpty) {
                                   setState(() {
-                                    errorname = 'Not valid username';
+                                    erroremail = 'Not valid username';
                                   });
                                 } else {
                                   setState(() {
-                                    errorname = null;
+                                    erroremail = null;
                                   });
                                 }
                                 if (passwordController.text.isEmpty) {

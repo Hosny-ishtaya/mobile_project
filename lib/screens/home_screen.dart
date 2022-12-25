@@ -3,15 +3,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:store_app/constants.dart';
 import 'package:store_app/widgets/home/home_body.dart';
 import '../Sidebar/Ndrawer.dart';
+import '../widgets/home/home_body.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const Ndrawer(),
       backgroundColor: kPrimaryColor,
       appBar: homeAppBar(),
-      body: HomeBody(),
+      body: HomeBodyy(),
     );
   }
 

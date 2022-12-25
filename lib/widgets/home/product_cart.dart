@@ -104,7 +104,7 @@ class ProductCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(22),
                         ),
                         child: Text(
-                          'Rare: \10/${product.price}',
+                          'Rate: \10/${product.price}',
                           style: TextStyle(fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                         ),

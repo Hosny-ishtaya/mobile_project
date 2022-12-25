@@ -36,7 +36,7 @@ class DetailsScreen extends StatelessWidget {
       centerTitle: false,
       title: Text(
         'Back',
-        style: Theme.of(context).textTheme.bodyText2,
+        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
       ),
     );
   }

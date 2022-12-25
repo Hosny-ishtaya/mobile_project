@@ -21,7 +21,7 @@ class Draweritem extends StatelessWidget {
         height: 40,
         child: Row(
           children: [
-            Icon(icon, size: 20, color: Colors.white),
+            Icon(icon, size: 20, color: maincolor),
             const SizedBox(
               width: 12,
             ),
@@ -29,7 +29,7 @@ class Draweritem extends StatelessWidget {
               name,
               style: TextStyle(
                   fontSize: 15,
-                  color: Colors.white,
+                  color: Colors.black,
                   fontWeight: FontWeight.bold),
             )
           ],

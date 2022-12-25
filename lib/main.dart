@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Electrical Store',
+      title: 'complaint manegement',
       theme: ThemeData(
         scaffoldBackgroundColor: bgcolor,
         textTheme: TextTheme(

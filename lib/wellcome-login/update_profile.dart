@@ -11,16 +11,17 @@ class UpdateProfileScreen extends StatefulWidget {
 }
 
 bool hiddenpaas = true;
-var erruname, errfname, errlname, erremail, errpass;
+var erruname,erremail, errphone, erraddress,errid,  errpass;
 
 class _updateprofile extends State<UpdateProfileScreen> {
   final TextEditingController usernameeController = new TextEditingController();
-
-  final TextEditingController FirstnameController = new TextEditingController();
-
-  final TextEditingController LastnameController = new TextEditingController();
-
+  
   final TextEditingController emailController = new TextEditingController();
+
+  final TextEditingController PhoneController = new TextEditingController();
+
+  final TextEditingController AddressController = new TextEditingController();
+
 
   final TextEditingController passworddController = new TextEditingController();
 
@@ -133,6 +134,57 @@ class _updateprofile extends State<UpdateProfileScreen> {
                         ],
                       ),
                     ),
+
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(right: 16),
+                            child: Icon(Icons.phone, color: maincolor),
+                          ),
+                          Expanded(
+                              child: TextField(
+                                  controller: PhoneController,
+                                  decoration: InputDecoration(
+                                    hintText: "Phone",
+                                    errorText: errphone,
+                                    hintStyle: TextStyle(
+                                        color: Colors.grey, fontSize: 12),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: maincolor), //<-- SEE HERE
+                                    ),
+                                  )))
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(right: 16),
+                            child: Icon(Icons.location_city, color: maincolor),
+                          ),
+                          Expanded(
+                              child: TextField(
+                                  controller: AddressController,
+                                  decoration: InputDecoration(
+                                    hintText: "Address",
+                                    errorText: erraddress,
+                                    hintStyle: TextStyle(
+                                        color: Colors.grey, fontSize: 12),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: maincolor), //<-- SEE HERE
+                                    ),
+                                  )))
+                        ],
+                      ),
+                    ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
@@ -161,32 +213,6 @@ class _updateprofile extends State<UpdateProfileScreen> {
                                   ),
                                 )))
                       ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(right: 16),
-                            child: Icon(Icons.supervised_user_circle,
-                                color: maincolor),
-                          ),
-                          Expanded(
-                              child: TextField(
-                                  controller: LastnameController,
-                                  decoration: InputDecoration(
-                                    hintText: "Last Name",
-                                    errorText: errlname,
-                                    hintStyle: TextStyle(
-                                        color: Colors.grey, fontSize: 12),
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: maincolor), //<-- SEE HERE
-                                    ),
-                                  )))
-                        ],
-                      ),
                     ),
                     SizedBox(
                       height: 30,

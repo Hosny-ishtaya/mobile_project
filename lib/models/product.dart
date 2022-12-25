@@ -19,7 +19,7 @@ List<Product> products = [
     title: "Al-Rajeh Company",
     subTitle: "cleaning products",
     image: "images/alrajeh.png",
-    description: "",
+    description: "Palestine-Nablus",
   ),
   Product(
     id: 2,
@@ -27,7 +27,7 @@ List<Product> products = [
     title: "Bravo Super market",
     subTitle: "Grocery store",
     image: "images/bravo.png",
-    description: "",
+    description: "Palestine-Nablus-Byte Wazan",
   ),
   Product(
     id: 3,
