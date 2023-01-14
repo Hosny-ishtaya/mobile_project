@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import '../pageone.dart';
 import 'dart:convert';
 import 'signin_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
   @override
@@ -11,19 +12,61 @@ class UpdateProfileScreen extends StatefulWidget {
 }
 
 bool hiddenpaas = true;
-var erruname,erremail, errphone, erraddress,errid,  errpass;
+var erruname, erremail, errphone, erraddress, errid, errpass;
 
 class _updateprofile extends State<UpdateProfileScreen> {
   final TextEditingController usernameeController = new TextEditingController();
-  
+
   final TextEditingController emailController = new TextEditingController();
 
   final TextEditingController PhoneController = new TextEditingController();
 
   final TextEditingController AddressController = new TextEditingController();
 
-
   final TextEditingController passworddController = new TextEditingController();
+
+  bool isSignIn = false;
+  var username;
+  var email;
+  var password;
+  var phone;
+  var address;
+  var social_num;
+
+  getvaliddata() async {
+    final SharedPreferences sharoref = await SharedPreferences.getInstance();
+    username = sharoref.getString('name');
+    email = sharoref.getString('email');
+    password = sharoref.getString('password');
+    phone = sharoref.getInt('phone');
+    address = sharoref.getString('address');
+
+    // username = sharoref.getInt('social_number');
+
+    if (username != null) {
+      setState(() {
+        username = sharoref.getString('name');
+        email = sharoref.getString('email');
+        password = sharoref.getString('password');
+        phone = sharoref.getInt('phone');
+        address = sharoref.getString('address');
+        //********* */
+        usernameeController.text = username;
+        emailController.text = email;
+        passworddController.text = password;
+        PhoneController.text = phone.toString();
+        AddressController.text = address;
+
+        isSignIn = true;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    getvaliddata();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +88,7 @@ class _updateprofile extends State<UpdateProfileScreen> {
 
       body: SingleChildScrollView(
         child: Container(
-          padding: const EdgeInsets.all(50),
+          padding: const EdgeInsets.all(1),
           child: Column(
             children: [
               Stack(
@@ -220,11 +263,13 @@ class _updateprofile extends State<UpdateProfileScreen> {
                     FittedBox(
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(
-                            builder: (context) {
-                              return SignIn();
-                            },
-                          ));
+                          signup(
+                              usernameeController.text,
+                              PhoneController.text,
+                              AddressController.text,
+                              emailController.text,
+                              passworddController.text,
+                              context);
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(
@@ -261,36 +306,42 @@ class _updateprofile extends State<UpdateProfileScreen> {
     );
   }
 
-  // signup(String username, String firstname, String lastname, String email,
-  //     String password, BuildContext contextt) async {
-  //   print("hi im omar");
-  //   var response = await http
-  //       .post(Uri.parse("http://192.168.1.65:8090/api/v1/user/addUser"),
-  //           body: json.encode({
-  //             'userName': username,
-  //             'firstName': firstname,
-  //             'lastName': lastname,
-  //             'email': email,
-  //             'password': password,
-  //             'role': "User"
-  //           }),
-  //           headers: {"content-type": "application/json"});
+  signup(String username, String phone, String address, String email,
+      String password, BuildContext contextt) async {
+    SharedPreferences sharoref = await SharedPreferences.getInstance();
+    social_num = sharoref.getInt('social_number');
 
-  //   if (response.statusCode == 200) {
-  //     print('account is creted ');
+    if (social_num != null) {
+      setState(() {
+        social_num = sharoref.getInt('social_number');
+        print("inside$social_num");
+        isSignIn = true;
+      });
+    }
 
-  //     usernameeController.text = "";
-  //     FirstnameController.text = "";
-  //     LastnameController.text = "";
-  //     emailController.text = "";
-  //     passworddController.text = "";
+    print("hi im omar");
+    var response = await http.put(
+        Uri.parse(
+            "http://192.168.1.114:9090/api/compailntsystem/customer/editProfile"),
+        body: json.encode({
+          'username': username,
+          'phone': phone,
+          'address': address,
+          'email': email,
+          'password': password,
+          "social_number": social_num
+        }),
+        headers: {"content-type": "application/json"});
 
-  //     final snakbar = SnackBar(content: Text("Account is Created"));
-  //     ScaffoldMessenger.of(context).showSnackBar(snakbar);
-  //   } else {
-  //     print(response.statusCode);
-  //   }
-  // }
+    if (response.statusCode == 200) {
+      print('updated Data ');
+
+      final snakbar = SnackBar(content: Text("updated Data "));
+      ScaffoldMessenger.of(context).showSnackBar(snakbar);
+    } else {
+      print(response.statusCode);
+    }
+  }
 
   void _toglepass() {
     setState(() {

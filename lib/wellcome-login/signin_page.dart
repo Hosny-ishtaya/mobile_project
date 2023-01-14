@@ -8,6 +8,9 @@ import './signup_page.dart';
 import './wellcome_page.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import './Reset_password.dart';
+import 'Login_option.dart';
+import '../Main_page/Main_page.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -20,6 +23,7 @@ class _SignInState extends State<SignIn> {
   var erroremail;
 
   var _formkey = GlobalKey<FormState>();
+
   final TextEditingController EmailController = new TextEditingController();
 
   final TextEditingController passwordController = new TextEditingController();
@@ -132,14 +136,22 @@ class _SignInState extends State<SignIn> {
                       ],
                     ),
                     SizedBox(
-                      height: 13,
+                      height: 25,
+                    ),
+                    Text("Or:", style: TextStyle(fontSize: 15)),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    LoginOption(),
+                    SizedBox(
+                      height: 25,
                     ),
                     FittedBox(
                       child: GestureDetector(
                         onTap: () {
                           Navigator.push(context, MaterialPageRoute(
                             builder: (context) {
-                              return SignUp();
+                              return ResetPasswordScreen();
                             },
                           ));
                         },
@@ -267,18 +279,24 @@ class _SignInState extends State<SignIn> {
     );
   }
 
-  signin(String username, String password, BuildContext contextt) async {
+  signin(String email, String password, BuildContext contextt) async {
     print('potato');
+    // print(email);
+    // print(password);
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    Map data = {'userName': username, 'userPassword': password};
+    prefs.setString("email", email);
+
+    // Map data = {'email': email, 'password': password};
 
     var jasonData = null;
     var response = await http.post(
-        Uri.parse("http://192.168.1.65:8090/api/v1/authenticate/authenticate"),
+        Uri.parse(
+            "http://192.168.1.114:9090/api/compailntsystem/customer/signIn"),
         body: json.encode({
-          'userName': username,
-          'userPassword': password,
+          'email': email,
+          'password': password,
         }),
         headers: {"content-type": "application/json"});
 
@@ -295,12 +313,21 @@ class _SignInState extends State<SignIn> {
 
         //  });
 
-        prefs.setString("token", jasonData['jwtToken']);
-        // prefs.setString("username",jasonData['user']["userName"]);
+        // prefs.setString("token", jasonData['jwtToken']);
+        prefs.setString("email", jasonData["email"]);
+        prefs.setString("name", jasonData["username"]);
+        prefs.setString("password", jasonData["password"]);
+        prefs.setString("address", jasonData["address"]);
+        prefs.setInt("phone", jasonData["phone"]);
+        prefs.setInt("social_number", jasonData["social_number"]);
+
+        print(prefs.getString("email"));
+        print(prefs.getString("name"));
+        print(prefs.getInt("social_number"));
 
         Navigator.push(contextt, MaterialPageRoute(
           builder: (context) {
-            return wellcomsecreen(); //change it to main page not wellcome , wellcome to test only
+            return Mainpage(); //change it to main page not wellcome , wellcome to test only
           },
         ));
       } else {

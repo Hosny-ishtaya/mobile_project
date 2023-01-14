@@ -5,9 +5,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../pageone.dart';
 import 'dart:io';
+import 'package:http/http.dart' as http;
 
 class Complain extends StatefulWidget {
-  const Complain({Key key}) : super(key: key);
+  final Map todo;
+  const Complain({this.todo, key}) : super(key: key);
 
   @override
   _Complain_form createState() => _Complain_form();
@@ -15,6 +17,40 @@ class Complain extends StatefulWidget {
 
 class _Complain_form extends State<Complain> {
   File file;
+
+  var custm_id;
+
+  bool isSignIn = false;
+
+  getvaliddata() async {
+    SharedPreferences sharoref = await SharedPreferences.getInstance();
+    custm_id = sharoref.getInt('social_number');
+
+    if (custm_id != null) {
+      setState(() {
+        custm_id = sharoref.getInt('social_number');
+        isSignIn = true;
+        print(custm_id);
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    getvaliddata();
+    final todo = widget.todo;
+
+    if (todo != null) {
+      final Ncompany = todo['title'];
+      final description = todo['description'];
+
+      NameCompanyController.text = Ncompany;
+      DescriptionController.text = description;
+
+      isEdit = true;
+    }
+    super.initState();
+  }
 
   Future piccamera() async {
     final myfile = await ImagePicker().pickImage(source: ImageSource.camera);
@@ -28,12 +64,23 @@ class _Complain_form extends State<Complain> {
     _Catogryvalue = _Catogrylist[0];
   }
 
-  final _Catogrylist = ["Pharmaceuticals", "B", "C", "D"];
+  bool isEdit = false;
+
+  final _Catogrylist = [
+    "Pharmaceuticals",
+    "Grocery",
+    "sanity ware",
+    "Cosmetics store",
+    "Sport",
+    "Fashion lodistics"
+  ];
   String _Catogryvalue = "Pharmaceuticals";
 
   TextEditingController NameCompanyController = TextEditingController();
-  TextEditingController PhoneController = TextEditingController();
+  TextEditingController cus_idController = TextEditingController();
+  TextEditingController company_idController = TextEditingController();
   TextEditingController LocationCompanyController = TextEditingController();
+  TextEditingController DescriptionController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -64,15 +111,17 @@ class _Complain_form extends State<Complain> {
               SizedBox(height: height * 0.04),
               TextWidget(text: "Here to put", fontSize: 26, isUnderLine: false),
               TextWidget(
-                  text: "Free Complaint !", fontSize: 26, isUnderLine: false),
-              SizedBox(height: height * 0.04),
-              TextInput(
-                  textString: "Phone Number ",
-                  textController: PhoneController,
-                  hint: "Phone Number "),
-              SizedBox(
-                height: height * .02,
-              ),
+                  text: isEdit ? "Edit Complaint!" : "Free Complaint",
+                  fontSize: 26,
+                  isUnderLine: false),
+              SizedBox(height: height * 0.01), //0.04
+              // TextInput(
+              //     textString: "Your ID ",
+              //     textController: cus_idController,
+              //     hint: "Your id"),
+              // SizedBox(
+              //   height: height * .02,
+              // ),
               DropdownButtonFormField(
                 value: _Catogryvalue,
                 items: _Catogrylist.map((e) => DropdownMenuItem(
@@ -94,11 +143,9 @@ class _Complain_form extends State<Complain> {
                 height: height * .02,
               ),
               TextInput(
-                textString: "Name of Company",
-                textController: NameCompanyController,
-                hint: "Name of Company",
-                obscureText: true,
-              ),
+                  textString: "Company Id ",
+                  textController: company_idController,
+                  hint: "company id"),
               SizedBox(
                 height: height * .02,
               ),
@@ -106,12 +153,13 @@ class _Complain_form extends State<Complain> {
                 textString: "Location of Company",
                 textController: LocationCompanyController,
                 hint: "Location of Company",
-                obscureText: true,
+                obscureText: false,
               ),
               SizedBox(
                 height: height * .05,
               ),
               TextFormField(
+                controller: DescriptionController,
                 minLines: 2,
                 maxLines: 5,
                 keyboardType: TextInputType.multiline,
@@ -150,31 +198,123 @@ class _Complain_form extends State<Complain> {
               SizedBox(
                 height: height * .04,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextWidget(
-                      text: "Complain", fontSize: 22, isUnderLine: false),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        height: 80,
-                        width: 60,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: maincolor,
+              FittedBox(
+                child: GestureDetector(
+                  onTap: () {
+                    isEdit ? updateData() : submitData();
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 26, vertical: 16),
+                    margin: EdgeInsets.only(left: 100, right: 10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(25),
+                      color: maincolor,
+                    ),
+                    child: Row(
+                      children: <Widget>[
+                        Text(
+                          isEdit ? "Edit Complain" : "Complain",
+                          style: Theme.of(context).textTheme.button?.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16),
                         ),
-                        child: Icon(Icons.arrow_forward,
-                            color: Colors.white, size: 30),
-                      ))
-                ],
-              ),
+                      ],
+                    ),
+                  ),
+                ),
+              )
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     TextWidget(
+              //         text: "Complain", fontSize: 22, isUnderLine: false),
+              //     SizedBox(
+              //       width: 10,
+              //     ),
+              //     GestureDetector(
+              //         onTap: () {
+              //           submitData();
+              //         },
+              //         child: Container(
+              //           height: 80,
+              //           width: 60,
+              //           decoration: BoxDecoration(
+              //             shape: BoxShape.circle,
+              //             color: maincolor,
+              //           ),
+              //           child: Icon(Icons.arrow_forward,
+              //               color: Colors.white, size: 30),
+              //         ))
+              //   ],
+              // ),
             ],
           ),
         ));
+  }
+
+  Future<void> updateData() async {
+    final todo = widget.todo;
+    if (todo == null) {
+      print("you cant update");
+    }
+    final description = DescriptionController.text;
+    final company = NameCompanyController.text;
+
+    final id = todo['_id'];
+
+    final body = {
+      "companyname": company,
+      "description": description,
+    };
+
+    final url = "http update compalin/$id";
+    final uri = Uri.parse(url);
+    final response = await http.put(uri,
+        body: jsonEncode(description),
+        headers: {'Content-Type': 'application/json'});
+
+    if (response.statusCode == 200) {
+      print("Success update ");
+    } else {
+      print("Failed update ");
+      print(response.body);
+    }
+  }
+
+  Future<void> submitData() async {
+    final description = DescriptionController.text;
+    final location = LocationCompanyController.text;
+    final compan_id = company_idController.text;
+
+    final url =
+        "http://192.168.1.114:9090/api/compailntsystem/customer/makeComplaint";
+    final uri = Uri.parse(url);
+    final response = await http.post(uri,
+        body: json.encode({
+          'description': description,
+          'location': location,
+          'type_company': _Catogryvalue,
+          'customer_id': custm_id,
+          'company_id': compan_id,
+        }),
+        headers: {'Content-Type': 'application/json'});
+
+    if (response.statusCode == 200) {
+      print(response.statusCode);
+
+      DescriptionController.text = "";
+      LocationCompanyController.text = "";
+      company_idController.text = "";
+
+      final snakbar = SnackBar(content: Text("Complaint is Created"));
+      ScaffoldMessenger.of(context).showSnackBar(snakbar);
+
+      print("Success");
+    } else {
+      print("Failed");
+      print(response.body);
+    }
   }
 }
 

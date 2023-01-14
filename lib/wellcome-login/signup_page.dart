@@ -381,18 +381,17 @@ class _SignUpState extends State<SignUp> {
   signup(String username, String email, String phone, String address, String id,
       String password, BuildContext contextt) async {
     print("hi im omar");
-    var response = await http
-        .post(Uri.parse("http://192.168.1.65:8090/api/v1/user/addUser"),
-            body: json.encode({
-              'userName': username,
-              'firstName': email,
-              'lastName': phone,
-              'email': address,
-              'id': id,
-              'password': password,
-              'role': "User"
-            }),
-            headers: {"content-type": "application/json"});
+    var response = await http.post(
+        Uri.parse(
+            "http://192.168.1.114:9090/api/compailntsystem/customer/registerCustomer"),
+        body: json.encode({
+          'username': username,
+          'phone': phone,
+          'address': address,
+          'email': email,
+          'password': password,
+        }),
+        headers: {"content-type": "application/json"});
 
     if (response.statusCode == 200) {
       print('account is creted ');

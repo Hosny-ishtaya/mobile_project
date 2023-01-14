@@ -1,13 +1,24 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../constants.dart';
 import './Card_main_page.dart';
 import 'Bottom_page.dart';
 import '../Complain/Complain_form.dart';
 import '../screens/home_screen.dart';
 import '../Sidebar/Ndrawer.dart';
+import '../Complain/List_complaint.dart';
 
-class Mainpage extends StatelessWidget {
+class Mainpage extends StatefulWidget {
+  @override
+  State<Mainpage> createState() => _mainpage();
+}
+
+class _mainpage extends State<Mainpage> {
+  var username;
+  bool isSignIn = false;
   AppBar homeAppBar() {
     return AppBar(
       backgroundColor: kPrimaryColor,
@@ -15,13 +26,30 @@ class Mainpage extends StatelessWidget {
     );
   }
 
-  var namee = "Hosny Ishtaya";
+  getvaliddata() async {
+    final SharedPreferences sharoref = await SharedPreferences.getInstance();
+    username = sharoref.getString('name');
+
+    if (username != null) {
+      setState(() {
+        username = sharoref.getString('name');
+        isSignIn = true;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    getvaliddata();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context)
         .size; //this gonna give us total height and with of our device
     return Scaffold(
-      drawer: const Ndrawer(),
+      drawer: Ndrawer(),
       appBar: homeAppBar(),
       backgroundColor: kSha,
       bottomNavigationBar: BottomNavBar(),
@@ -78,13 +106,15 @@ class Mainpage extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Text(
-                        namee,
-                        style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.white),
-                      ),
+                      isSignIn
+                          ? Text(
+                              username,
+                              style: TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w800,
+                                  color: Colors.white),
+                            )
+                          : Text(""),
                     ],
                   ),
                   // SearchBar(),
@@ -111,7 +141,14 @@ class Mainpage extends StatelessWidget {
                         CategoryCard(
                           title: "MY COMPLAINT",
                           svgSrc: "images/p7.svg",
-                          press: () {},
+                          press: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) {
+                                return List_complaint();
+                              }),
+                            );
+                          },
                         ),
                         CategoryCard(
                           title: "COMPANY",
@@ -126,8 +163,8 @@ class Mainpage extends StatelessWidget {
                           },
                         ),
                         CategoryCard(
-                          title: "PROFILE",
-                          svgSrc: "images/comp.svg",
+                          title: "MAP",
+                          svgSrc: "images/map3.svg",
                           press: () {},
                         ),
                       ],

@@ -6,9 +6,39 @@ import '../wellcome-login/update_profile.dart';
 import '../screens/home_screen.dart';
 import '../Complain/Complain_form.dart';
 import '../Main_page/Main_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Ndrawer extends StatelessWidget {
-  const Ndrawer({Key key}) : super(key: key);
+class Ndrawer extends StatefulWidget {
+  Ndrawer({Key key}) : super(key: key);
+
+  @override
+  State<Ndrawer> createState() => _NdrawerState();
+}
+
+class _NdrawerState extends State<Ndrawer> {
+  var email;
+  var username;
+  bool isSignIn = false;
+
+  getvaliddata() async {
+    SharedPreferences sharoref = await SharedPreferences.getInstance();
+    email = sharoref.getString('email');
+    username = sharoref.getString('name');
+
+    if (username != null) {
+      setState(() {
+        email = sharoref.getString('email');
+        username = sharoref.getString('name');
+        isSignIn = true;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    getvaliddata();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +49,7 @@ class Ndrawer extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(20, 60, 19, 0),
           child: Column(
             children: [
-              headerWidget(),
+              headerWidget(isSignIn),
               const SizedBox(
                 height: 17,
               ),
@@ -110,7 +140,7 @@ class Ndrawer extends StatelessWidget {
     }
   }
 
-  Widget headerWidget() {
+  Widget headerWidget(bool issign) {
     return Row(
       children: [
         const CircleAvatar(
@@ -122,23 +152,27 @@ class Ndrawer extends StatelessWidget {
         ),
         Column(
           children: [
-            Text(
-              "hosny ishtaya",
-              style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold),
-            ),
+            issign
+                ? Text(
+                    username,
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold),
+                  )
+                : Text(""),
             const SizedBox(
               height: 8,
             ),
-            Text(
-              "hosnyish812@gmail.com.",
-              style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold),
-            )
+            issign
+                ? Text(
+                    email,
+                    style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold),
+                  )
+                : Text("")
           ],
         )
       ],

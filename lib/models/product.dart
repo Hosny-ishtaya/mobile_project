@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
 class Product {
   final int id, price;
   final String title, subTitle, description, image;
@@ -12,6 +16,33 @@ class Product {
 }
 
 // list of products
+
+// Future<List<void>> GetCompany() async {
+//   final url =
+//       "http://192.168.1.114:9090/api/compailntsystem/customer/getallcompanies";
+//   final uri = Uri.parse(url);
+//   final response = await http.get(uri);
+
+//   if (response.statusCode == 200) {
+//     print("success get company");
+
+//     final json = jsonDecode(response.body);
+
+//     final result = json as List;
+
+//     return result;
+
+//     // setState(() {
+//     //   producty = result; // there we put all info from database in this list
+//     // });
+
+//     print(response.statusCode);
+//     print(json);
+//     // print(response.body);
+//   } else {
+//     print(response.statusCode);
+//   }
+// }
 List<Product> products = [
   Product(
     id: 1,
@@ -20,45 +51,5 @@ List<Product> products = [
     subTitle: "cleaning products",
     image: "images/alrajeh.png",
     description: "Palestine-Nablus",
-  ),
-  Product(
-    id: 2,
-    price: 9,
-    title: "Bravo Super market",
-    subTitle: "Grocery store",
-    image: "images/bravo.png",
-    description: "Palestine-Nablus-Byte Wazan",
-  ),
-  Product(
-    id: 3,
-    price: 9,
-    title: "Al-Quds Company",
-    subTitle: "Pharmaceuticals",
-    image: "images/jerusalemm.png",
-    description: "",
-  ),
-  Product(
-    id: 4,
-    price: 7,
-    title: "Shini Store",
-    subTitle: "Grocery store",
-    image: "images/shenii.png",
-    description: "",
-  ),
-  Product(
-    id: 5,
-    price: 7,
-    title: "AL-Dolphin LTD",
-    subTitle: "Sanitary ware",
-    image: "images/dolphinn.png",
-    description: "",
-  ),
-  Product(
-    id: 6,
-    price: 6,
-    title: "Cosmoline",
-    subTitle: "Cosmetics Store",
-    image: "images/cosmo.png",
-    description: "",
   ),
 ];

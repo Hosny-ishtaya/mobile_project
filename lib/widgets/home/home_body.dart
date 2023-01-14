@@ -3,6 +3,8 @@ import 'package:store_app/constants.dart';
 import 'package:store_app/models/product.dart';
 import 'package:store_app/screens/details_screen.dart';
 import 'package:store_app/widgets/home/product_cart.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class HomeBodyy extends StatefulWidget {
   @override
@@ -13,6 +15,12 @@ class HomeBody extends State<HomeBodyy> {
   List<Product> producty = products;
 
   final searchcontroler = TextEditingController();
+
+  @override
+  void initState() {
+    GetCompany();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,5 +95,32 @@ class HomeBody extends State<HomeBodyy> {
       return companytitle.contains(input);
     }).toList();
     setState(() => producty = suggest);
+  }
+
+  Future<List<void>> GetCompany() async {
+    final url =
+        "http://192.168.1.114:9090/api/compailntsystem/customer/getallcompanies";
+    final uri = Uri.parse(url);
+    final response = await http.get(uri);
+
+    if (response.statusCode == 200) {
+      print("success get company");
+
+      final json = jsonDecode(response.body);
+
+      final result = json as List;
+
+      return result;
+
+      // setState(() {
+      //   producty = result; // there we put all info from database in this list
+      // });
+
+      print(response.statusCode);
+      print(json);
+      // print(response.body);
+    } else {
+      print(response.statusCode);
+    }
   }
 }
