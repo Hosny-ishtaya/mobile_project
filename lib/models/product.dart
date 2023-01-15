@@ -3,17 +3,70 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class Product {
-  final int id, price;
-  final String title, subTitle, description, image;
+  final int id, rate;
+  final String namec, typeofc, description, image;
 
   Product(
       {this.id,
-      this.price,
-      this.title,
-      this.subTitle,
+      this.rate,
+      this.namec,
+      this.typeofc,
       this.description,
       this.image});
 }
+
+List<Product> products = [
+  Product(
+    id: 7,
+    rate: 7,
+    namec: "Al-Rajeh",
+    typeofc: "cleaning products",
+    image: "images/companylogo.png",
+    description: "Nablus",
+  ),
+  Product(
+    id: 2,
+    rate: 3,
+    namec: "cosmoline",
+    typeofc: "cosmatics",
+    image: "images/companylogo.png",
+    description: "nab",
+  ),
+  Product(
+    id: 4,
+    rate: 8,
+    namec: "ASAL",
+    typeofc: "Software Industry",
+    image: "images/companylogo.png",
+    description: "Rawabi - Rammallah",
+  ),
+  Product(
+    id: 1,
+    rate: 8,
+    namec: "Al-quds",
+    typeofc: "Pharmaceuticals",
+    image: "images/companylogo.png",
+    description: "Rammallah",
+  ),
+  Product(
+    id: 6,
+    rate: 9,
+    namec: "Al-Dolphine",
+    typeofc: "Sanitary Ware",
+    image: "images/companylogo.png",
+    description: "Nablus-salem",
+  ),
+];
+
+
+
+
+  // factory Product.fromJson(List<dynamic> parsedJson) {
+  //   List<Product> list = new List<Product>();
+
+  // }
+
+//}
 
 // list of products
 
@@ -43,13 +96,3 @@ class Product {
 //     print(response.statusCode);
 //   }
 // }
-List<Product> products = [
-  Product(
-    id: 1,
-    price: 8,
-    title: "Al-Rajeh Company",
-    subTitle: "cleaning products",
-    image: "images/alrajeh.png",
-    description: "Palestine-Nablus",
-  ),
-];

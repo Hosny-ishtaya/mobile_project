@@ -264,17 +264,17 @@ class _SignUpState extends State<SignUp> {
                           SizedBox(
                             width: 5,
                           ),
-                          Container(
-                            padding: EdgeInsets.all(15),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.black.withOpacity(0.2),
-                            ),
-                            child: Icon(
-                              Icons.facebook_outlined,
-                              // color: Colors.white.withOpacity(0.5),
-                            ),
-                          ),
+                          // Container(
+                          //   padding: EdgeInsets.all(15),
+                          //   decoration: BoxDecoration(
+                          //     shape: BoxShape.circle,
+                          //     color: Colors.black.withOpacity(0.2),
+                          //   ),
+                          //   child: Icon(
+                          //     Icons.facebook_outlined,
+                          //     // color: Colors.white.withOpacity(0.5),
+                          //   ),
+                          // ),
                           Spacer(),
                           FittedBox(
                             child: GestureDetector(
@@ -390,6 +390,7 @@ class _SignUpState extends State<SignUp> {
           'address': address,
           'email': email,
           'password': password,
+          "social_number": id
         }),
         headers: {"content-type": "application/json"});
 

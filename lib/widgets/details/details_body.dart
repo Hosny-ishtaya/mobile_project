@@ -57,13 +57,13 @@ class DetailsBody extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(vertical: kDefaultPadding / 2),
                 child: Text(
-                  product.title,
+                  product.namec,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                   textAlign: TextAlign.center,
                 ),
               ),
               Text(
-                'Rate:\10/${product.price}',
+                'Rate:\10/${product.rate}',
                 style: TextStyle(
                   fontSize: 28.0,
                   fontWeight: FontWeight.w600,
@@ -82,6 +82,17 @@ class DetailsBody extends StatelessWidget {
           ),
           child: Text(
             product.description,
+            style: TextStyle(color: Colors.white, fontSize: 19.0),
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.symmetric(vertical: kDefaultPadding / 2),
+          padding: EdgeInsets.symmetric(
+            horizontal: kDefaultPadding * 1.5,
+            vertical: kDefaultPadding / 2,
+          ),
+          child: Text(
+            product.typeofc,
             style: TextStyle(color: Colors.white, fontSize: 19.0),
           ),
         ),

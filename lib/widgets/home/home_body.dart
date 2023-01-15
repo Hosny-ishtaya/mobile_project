@@ -89,7 +89,7 @@ class HomeBody extends State<HomeBodyy> {
 
   void searchcompany(String query) {
     final suggest = products.where((product) {
-      final companytitle = product.title.toLowerCase();
+      final companytitle = product.namec.toLowerCase();
       final input = query.toLowerCase();
 
       return companytitle.contains(input);

@@ -7,6 +7,8 @@ import '../screens/home_screen.dart';
 import '../Complain/Complain_form.dart';
 import '../Main_page/Main_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../wellcome-login/Aboutus.dart';
+import '../wellcome-login/About_program.dart';
 
 class Ndrawer extends StatefulWidget {
   Ndrawer({Key key}) : super(key: key);
@@ -92,6 +94,14 @@ class _NdrawerState extends State<Ndrawer> {
               const SizedBox(
                 height: 20,
               ),
+              Draweritem(
+                name: 'About Program',
+                icon: Icons.contact_page,
+                onPressed: () => onItempressd(context, index: 5),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               const Divider(
                 thickness: 1,
                 color: Colors.grey,
@@ -126,12 +136,17 @@ class _NdrawerState extends State<Ndrawer> {
 
       case 3:
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Mainpage()));
+            context, MaterialPageRoute(builder: (context) => Aboutus()));
         break;
 
       case 4:
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => SignIn()));
+        break;
+
+      case 5:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => About_program()));
         break;
 
       default:

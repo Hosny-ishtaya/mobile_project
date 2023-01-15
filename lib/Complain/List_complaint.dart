@@ -60,7 +60,7 @@ class _List_complaintState extends State<List_complaint> {
                     foregroundColor: Colors.white,
                   ),
                   title: Text(
-                    item['type_company'],
+                    item['status'],
                     style: TextStyle(fontSize: 12),
                   ),
                   subtitle:

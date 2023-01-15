@@ -156,6 +156,15 @@ class _Complain_form extends State<Complain> {
                 obscureText: false,
               ),
               SizedBox(
+                height: height * .02,
+              ),
+              TextInput(
+                textString: "Name of Company",
+                textController: NameCompanyController,
+                hint: "Name of Company",
+                obscureText: false,
+              ),
+              SizedBox(
                 height: height * .05,
               ),
               TextFormField(
@@ -286,17 +295,20 @@ class _Complain_form extends State<Complain> {
     final description = DescriptionController.text;
     final location = LocationCompanyController.text;
     final compan_id = company_idController.text;
+    final companyname = NameCompanyController.text;
 
     final url =
         "http://192.168.1.114:9090/api/compailntsystem/customer/makeComplaint";
     final uri = Uri.parse(url);
     final response = await http.post(uri,
         body: json.encode({
+          'type_company': _Catogryvalue,
           'description': description,
           'location': location,
-          'type_company': _Catogryvalue,
-          'customer_id': custm_id,
           'company_id': compan_id,
+          'customer_id': custm_id,
+          "companyName": companyname,
+          "status": "Pending"
         }),
         headers: {'Content-Type': 'application/json'});
 

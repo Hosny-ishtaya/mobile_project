@@ -43,7 +43,7 @@ class ProductCard extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: 40.0,
+              top: 47.0,
               left: 0.0,
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
@@ -72,7 +72,7 @@ class ProductCard extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: kDefaultPadding),
                       child: Text(
-                        product.title,
+                        product.namec,
                         style: Theme.of(context).textTheme.bodyText1,
                       ),
                     ),
@@ -83,7 +83,7 @@ class ProductCard extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: kDefaultPadding),
                       child: Text(
-                        product.subTitle,
+                        'ID:${product.id.toString()}',
                         style: Theme.of(context).textTheme.caption,
                         textAlign: TextAlign.center,
                       ),
@@ -104,7 +104,7 @@ class ProductCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(22),
                         ),
                         child: Text(
-                          'Rate: \10/${product.price}',
+                          'Rate: \10/${product.rate}',
                           style: TextStyle(fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                         ),
