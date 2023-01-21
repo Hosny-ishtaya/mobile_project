@@ -95,7 +95,7 @@ class _updateprofile extends State<UpdateProfileScreen> {
                 children: [
                   const CircleAvatar(
                     radius: 70,
-                    backgroundImage: AssetImage("images/hosny.png"),
+                    backgroundImage: AssetImage("images/users.png"),
                   ), // sizedBox
                   Positioned(
                     bottom: 0,
@@ -309,6 +309,7 @@ class _updateprofile extends State<UpdateProfileScreen> {
   signup(String username, String phone, String address, String email,
       String password, BuildContext contextt) async {
     SharedPreferences sharoref = await SharedPreferences.getInstance();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     social_num = sharoref.getInt('social_number');
 
     if (social_num != null) {
@@ -338,6 +339,11 @@ class _updateprofile extends State<UpdateProfileScreen> {
 
       final snakbar = SnackBar(content: Text("updated Data "));
       ScaffoldMessenger.of(context).showSnackBar(snakbar);
+
+      prefs.setString("email", email);
+      prefs.setString("name", username);
+      prefs.setString("password", password);
+      prefs.setString("address", address);
     } else {
       print(response.statusCode);
     }

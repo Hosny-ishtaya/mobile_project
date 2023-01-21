@@ -56,6 +56,14 @@ List<Product> products = [
     image: "images/companylogo.png",
     description: "Nablus-salem",
   ),
+  Product(
+    id: 10,
+    rate: 9,
+    namec: "saniora",
+    typeofc: "Grocery store",
+    image: "images/companylogo.png",
+    description: "Ramallah",
+  ),
 ];
 
 

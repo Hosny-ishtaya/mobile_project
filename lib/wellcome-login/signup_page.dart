@@ -234,7 +234,7 @@ class _SignUpState extends State<SignUp> {
                               onTap: () {
                                 Navigator.push(context, MaterialPageRoute(
                                   builder: (context) {
-                                    return Mainpage();
+                                    return SignIn();
                                     //SignIn();
                                   },
                                 ));

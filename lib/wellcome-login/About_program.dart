@@ -177,7 +177,7 @@ class About_program extends StatelessWidget {
               vertical: kDefaultPadding / 2,
             ),
             child: Text(
-              "If Not in the list of companies on the application. You make complaint by inter of Id of company  ID:(10).",
+              "If Not in the list of companies on the application. You make complaint by inter of Id of company  ID:(10) then Write Name company.",
               style: TextStyle(color: Colors.black87, fontSize: 20.0),
             ),
           ),

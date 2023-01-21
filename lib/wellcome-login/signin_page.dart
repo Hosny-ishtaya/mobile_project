@@ -31,7 +31,7 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: false,
       body: Column(
         children: <Widget>[
           Expanded(
@@ -305,37 +305,46 @@ class _SignInState extends State<SignIn> {
 
       //var data =jasonData(response.body.toString());
       //print(data);
-      jasonData = json.decode(response.body);
 
-      if (jasonData != null) {
-        //  setState(() {
-        //    _isLoading=false;
-
-        //  });
-
-        // prefs.setString("token", jasonData['jwtToken']);
-        prefs.setString("email", jasonData["email"]);
-        prefs.setString("name", jasonData["username"]);
-        prefs.setString("password", jasonData["password"]);
-        prefs.setString("address", jasonData["address"]);
-        prefs.setInt("phone", jasonData["phone"]);
-        prefs.setInt("social_number", jasonData["social_number"]);
-
-        print(prefs.getString("email"));
-        print(prefs.getString("name"));
-        print(prefs.getInt("social_number"));
-
-        Navigator.push(contextt, MaterialPageRoute(
-          builder: (context) {
-            return Mainpage(); //change it to main page not wellcome , wellcome to test only
-          },
-        ));
+      if (response.body.isEmpty) {
+        final snakbar =
+            SnackBar(content: Text("Username or password is Wrong"));
+        ScaffoldMessenger.of(context).showSnackBar(snakbar);
       } else {
-        //  setState(() {
-        //    _isLoading=false;
+        print(response.body.isEmpty);
 
-        //  });
-        print(response.body);
+        jasonData = json.decode(response.body);
+
+        if (jasonData != null) {
+          //  setState(() {
+          //    _isLoading=false;
+
+          //  });
+
+          // prefs.setString("token", jasonData['jwtToken']);
+          prefs.setString("email", jasonData["email"]);
+          prefs.setString("name", jasonData["username"]);
+          prefs.setString("password", jasonData["password"]);
+          prefs.setString("address", jasonData["address"]);
+          prefs.setInt("phone", jasonData["phone"]);
+          prefs.setInt("social_number", jasonData["social_number"]);
+
+          print(prefs.getString("email"));
+          print(prefs.getString("name"));
+          print(prefs.getInt("social_number"));
+
+          Navigator.push(contextt, MaterialPageRoute(
+            builder: (context) {
+              return Mainpage(); //change it to main page not wellcome , wellcome to test only
+            },
+          ));
+        } else {
+          //  setState(() {
+          //    _isLoading=false;
+
+          //  });
+          print(response.body);
+        }
       }
     } else {
       print(response.statusCode);

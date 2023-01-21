@@ -9,6 +9,7 @@ import '../Main_page/Main_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../wellcome-login/Aboutus.dart';
 import '../wellcome-login/About_program.dart';
+import '../Complain/CP.dart';
 
 class Ndrawer extends StatefulWidget {
   Ndrawer({Key key}) : super(key: key);
@@ -63,6 +64,14 @@ class _NdrawerState extends State<Ndrawer> {
                 height: 17,
               ),
               Draweritem(
+                name: 'Home',
+                icon: Icons.people,
+                onPressed: () => onItempressd(context, index: 6),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Draweritem(
                 name: 'Edit Profile',
                 icon: Icons.people,
                 onPressed: () => onItempressd(context, index: 0),
@@ -98,6 +107,14 @@ class _NdrawerState extends State<Ndrawer> {
                 name: 'About Program',
                 icon: Icons.contact_page,
                 onPressed: () => onItempressd(context, index: 5),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Draweritem(
+                name: 'C.P',
+                icon: Icons.contact_page,
+                onPressed: () => onItempressd(context, index: 7),
               ),
               const SizedBox(
                 height: 20,
@@ -149,6 +166,15 @@ class _NdrawerState extends State<Ndrawer> {
             context, MaterialPageRoute(builder: (context) => About_program()));
         break;
 
+      case 6:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Mainpage()));
+        break;
+      case 7:
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => List_company()));
+        break;
+
       default:
         Navigator.pop(context);
         break;
@@ -160,7 +186,7 @@ class _NdrawerState extends State<Ndrawer> {
       children: [
         const CircleAvatar(
           radius: 40,
-          backgroundImage: AssetImage("images/hosny.png"),
+          backgroundImage: AssetImage("images/users.png"),
         ),
         const SizedBox(
           width: 12,

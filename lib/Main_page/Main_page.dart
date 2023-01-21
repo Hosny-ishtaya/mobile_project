@@ -106,6 +106,13 @@ class _mainpage extends State<Mainpage> {
                   ),
                   Row(
                     children: [
+                      // Text(
+                      //   "-",
+                      //   style: TextStyle(
+                      //       fontSize: 30,
+                      //       fontWeight: FontWeight.w800,
+                      //       color: Colors.green),
+                      // ),
                       isSignIn
                           ? Text(
                               username,
@@ -127,7 +134,7 @@ class _mainpage extends State<Mainpage> {
                       mainAxisSpacing: 20,
                       children: <Widget>[
                         CategoryCard(
-                          title: "COMPLAINT",
+                          title: "COMPLAIN",
                           svgSrc: "images/p3.svg",
                           press: () {
                             Navigator.push(

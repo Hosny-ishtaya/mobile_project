@@ -68,11 +68,13 @@ class _Complain_form extends State<Complain> {
 
   final _Catogrylist = [
     "Pharmaceuticals",
-    "Grocery",
+    "Grocery store",
     "sanity ware",
     "Cosmetics store",
     "Sport",
-    "Fashion lodistics"
+    "Fashion logistics",
+    "Software Company",
+    "others"
   ];
   String _Catogryvalue = "Pharmaceuticals";
 
@@ -87,177 +89,182 @@ class _Complain_form extends State<Complain> {
     final double height = MediaQuery.of(context).size.height;
     return Scaffold(
         backgroundColor: Color(0xFFffffff),
-        body: Container(
-          padding: const EdgeInsets.only(left: 30, right: 40),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: height * 0.1),
-              Container(
-                padding: const EdgeInsets.only(left: 0, right: 30),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                        padding: EdgeInsets.zero,
-                        constraints: BoxConstraints(),
-                        icon: Icon(Icons.arrow_back_ios, color: maincolor),
-                        onPressed: () =>
-                            Navigator.of(context, rootNavigator: true)
-                                .pop(context))
-                  ],
+        body: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.only(left: 30, right: 40),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: height * 0.1),
+                Container(
+                  padding: const EdgeInsets.only(left: 0, right: 30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                          padding: EdgeInsets.zero,
+                          constraints: BoxConstraints(),
+                          icon: Icon(Icons.arrow_back_ios, color: maincolor),
+                          onPressed: () =>
+                              Navigator.of(context, rootNavigator: true)
+                                  .pop(context))
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(height: height * 0.04),
-              TextWidget(text: "Here to put", fontSize: 26, isUnderLine: false),
-              TextWidget(
-                  text: isEdit ? "Edit Complaint!" : "Free Complaint",
-                  fontSize: 26,
-                  isUnderLine: false),
-              SizedBox(height: height * 0.01), //0.04
-              // TextInput(
-              //     textString: "Your ID ",
-              //     textController: cus_idController,
-              //     hint: "Your id"),
-              // SizedBox(
-              //   height: height * .02,
-              // ),
-              DropdownButtonFormField(
-                value: _Catogryvalue,
-                items: _Catogrylist.map((e) => DropdownMenuItem(
-                      child: Text(e),
-                      value: e,
-                    )).toList(),
-                onChanged: (val) {
-                  setState(() {
-                    _Catogryvalue = val as String;
-                  });
-                },
-                icon: const Icon(
-                  Icons.arrow_drop_down_circle,
-                  color: maincolor,
-                ),
-                decoration: InputDecoration(labelText: "Catogry Type"),
-              ),
-              SizedBox(
-                height: height * .02,
-              ),
-              TextInput(
-                  textString: "Company Id ",
-                  textController: company_idController,
-                  hint: "company id"),
-              SizedBox(
-                height: height * .02,
-              ),
-              TextInput(
-                textString: "Location of Company",
-                textController: LocationCompanyController,
-                hint: "Location of Company",
-                obscureText: false,
-              ),
-              SizedBox(
-                height: height * .02,
-              ),
-              TextInput(
-                textString: "Name of Company",
-                textController: NameCompanyController,
-                hint: "Name of Company",
-                obscureText: false,
-              ),
-              SizedBox(
-                height: height * .05,
-              ),
-              TextFormField(
-                controller: DescriptionController,
-                minLines: 2,
-                maxLines: 5,
-                keyboardType: TextInputType.multiline,
-                decoration:
-                    InputDecoration(hintText: "Description of Complain"),
-              ),
-              SizedBox(
-                height: height * .02,
-              ),
-              FittedBox(
-                child: GestureDetector(
-                  onTap: () {
-                    piccamera();
+                SizedBox(height: height * 0.04),
+                TextWidget(
+                    text: "Here to put", fontSize: 26, isUnderLine: false),
+                TextWidget(
+                    text: isEdit ? "Edit Complaint!" : "Free Complaint",
+                    fontSize: 26,
+                    isUnderLine: false),
+                SizedBox(height: height * 0.01), //0.04
+                // TextInput(
+                //     textString: "Your ID ",
+                //     textController: cus_idController,
+                //     hint: "Your id"),
+                // SizedBox(
+                //   height: height * .02,
+                // ),
+                DropdownButtonFormField(
+                  value: _Catogryvalue,
+                  items: _Catogrylist.map((e) => DropdownMenuItem(
+                        child: Text(e),
+                        value: e,
+                      )).toList(),
+                  onChanged: (val) {
+                    setState(() {
+                      _Catogryvalue = val as String;
+                    });
                   },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 26, vertical: 10),
-                    margin: EdgeInsets.only(left: 10, right: 10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: maincolor,
-                    ),
-                    child: Row(
-                      children: <Widget>[
-                        Text(
-                          "Upload Image",
-                          style: Theme.of(context).textTheme.button?.copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16),
-                        ),
-                      ],
+                  icon: const Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: maincolor,
+                  ),
+                  decoration: InputDecoration(labelText: "Catogry Type"),
+                ),
+                SizedBox(
+                  height: height * .02,
+                ),
+                TextInput(
+                    textString: "Company id from list or defalt 10 ",
+                    textController: company_idController,
+                    hint: "company id from list or defalt 10"),
+                SizedBox(
+                  height: height * .02,
+                ),
+                TextInput(
+                  textString: "Location of Company",
+                  textController: LocationCompanyController,
+                  hint: "Location of Company",
+                  obscureText: false,
+                ),
+                SizedBox(
+                  height: height * .02,
+                ),
+                TextInput(
+                  textString: "Name of Company",
+                  textController: NameCompanyController,
+                  hint: "Name of Company",
+                  obscureText: false,
+                ),
+                SizedBox(
+                  height: height * .05,
+                ),
+                TextFormField(
+                  controller: DescriptionController,
+                  minLines: 2,
+                  maxLines: 5,
+                  keyboardType: TextInputType.multiline,
+                  decoration:
+                      InputDecoration(hintText: "Description of Complaint"),
+                ),
+                SizedBox(
+                  height: height * .02,
+                ),
+                FittedBox(
+                  child: GestureDetector(
+                    onTap: () {
+                      piccamera();
+                    },
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 26, vertical: 10),
+                      margin: EdgeInsets.only(left: 10, right: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: maincolor,
+                      ),
+                      child: Row(
+                        children: <Widget>[
+                          Text(
+                            "Upload Image",
+                            style: Theme.of(context).textTheme.button?.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: height * .04,
-              ),
-              FittedBox(
-                child: GestureDetector(
-                  onTap: () {
-                    isEdit ? updateData() : submitData();
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 26, vertical: 16),
-                    margin: EdgeInsets.only(left: 100, right: 10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-                      color: maincolor,
-                    ),
-                    child: Row(
-                      children: <Widget>[
-                        Text(
-                          isEdit ? "Edit Complain" : "Complain",
-                          style: Theme.of(context).textTheme.button?.copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16),
-                        ),
-                      ],
+                SizedBox(
+                  height: height * .04,
+                ),
+                FittedBox(
+                  child: GestureDetector(
+                    onTap: () {
+                      isEdit ? updateData() : submitData();
+                    },
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 26, vertical: 16),
+                      margin: EdgeInsets.only(left: 100, right: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                        color: maincolor,
+                      ),
+                      child: Row(
+                        children: <Widget>[
+                          Text(
+                            isEdit ? "Edit Complain" : "Complain",
+                            style: Theme.of(context).textTheme.button?.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              )
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     TextWidget(
-              //         text: "Complain", fontSize: 22, isUnderLine: false),
-              //     SizedBox(
-              //       width: 10,
-              //     ),
-              //     GestureDetector(
-              //         onTap: () {
-              //           submitData();
-              //         },
-              //         child: Container(
-              //           height: 80,
-              //           width: 60,
-              //           decoration: BoxDecoration(
-              //             shape: BoxShape.circle,
-              //             color: maincolor,
-              //           ),
-              //           child: Icon(Icons.arrow_forward,
-              //               color: Colors.white, size: 30),
-              //         ))
-              //   ],
-              // ),
-            ],
+                )
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     TextWidget(
+                //         text: "Complain", fontSize: 22, isUnderLine: false),
+                //     SizedBox(
+                //       width: 10,
+                //     ),
+                //     GestureDetector(
+                //         onTap: () {
+                //           submitData();
+                //         },
+                //         child: Container(
+                //           height: 80,
+                //           width: 60,
+                //           decoration: BoxDecoration(
+                //             shape: BoxShape.circle,
+                //             color: maincolor,
+                //           ),
+                //           child: Icon(Icons.arrow_forward,
+                //               color: Colors.white, size: 30),
+                //         ))
+                //   ],
+                // ),
+              ],
+            ),
           ),
         ));
   }
